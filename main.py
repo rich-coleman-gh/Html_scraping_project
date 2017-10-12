@@ -3,6 +3,17 @@ from bs4 import BeautifulSoup #import the Beautiful soup functions to parse the 
 import pandas as pd #import pandas to convert list to data frame
 from openpyxl import load_workbook
 
+# INPUT VARIABLES SPECIFIED BY THE USER
+Excel_column_index = 6
+Table_from_web_index = 8
+Table_from_web_column_index = 2
+Excel_sheet_index = 0
+filename = "Verisk Model_Send_Excel_2.xlsx"
+path = "~/Documents/Git/Html_scraping_project/"
+#url = "http://www.verisk.com/press-releases/2016/november/verisk-third-quarter-2016-results.html"
+url = "http://www.verisk.com/press-releases/2017/february/verisk-analytics-inc-reports-fourth-quarter-2016-financial-results.html"
+
+
 def parseTables(all_tables):
 	parsed_tables = []
 	for i in range(len(all_tables)-1):
@@ -16,8 +27,7 @@ def parseTables(all_tables):
 	        cols = [ele.text.strip() for ele in cols]
 	        df_temp.append([ele for ele in cols]) #get rid of empty values
 	    parsed_tables.append(df_temp)
-
-    return parsed_tables
+	return parsed_tables
 
 def loadExcelDoc(sheet_index):
     # Open up Faton Excel file
@@ -34,19 +44,7 @@ def loadExcelDoc(sheet_index):
 
     return df
 
-def Main():
-	# INPUT VARIABLES SPECIFIED BY THE USER
-	Excel_column_index = 6
-	Table_from_web_index = 8
-	Table_from_web_column_index = 2
-	Excel_sheet_index = 0
-	filename = "Verisk Model_Send_Excel_2.xlsx"
-	path = "~/Documents/Git/Html_scraping_project/"
-
-	#specify the url
-	#url = "http://www.verisk.com/press-releases/2016/november/verisk-third-quarter-2016-results.html"
-	url = "http://www.verisk.com/press-releases/2017/february/verisk-analytics-inc-reports-fourth-quarter-2016-financial-results.html"
-
+def main():
 	user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
 	headers={'User-Agent':user_agent,}
 
@@ -86,3 +84,7 @@ def Main():
 	            ws[i+1][Excel_column_index].value = df_from_web.loc[j,Table_from_web_column_index]
 	       
 	wb.save("temp.xlsx")
+
+#########################################################################
+# Lets run our script
+main()
