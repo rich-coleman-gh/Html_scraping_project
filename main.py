@@ -27,14 +27,13 @@ def excelSheetToIndex(index):
 
 
 #Set global variabes to correct values
-Excel_column_index = excelColumnToIndex(input1)
-Table_from_web_index = tableFromWebToIndex(input2)
-Table_from_web_column_index = tableColumnFromWebToIndex(input3)
-Excel_sheet_index = excelSheetToIndex(input4)
-filename = input5
-path = input6
-#url = "http://www.verisk.com/press-releases/2016/november/verisk-third-quarter-2016-results.html"
-url = input7
+EXCEL_COLUMN_INDEX = excelColumnToIndex(input1)
+TABLE_FROM_WEB_INDEX = tableFromWebToIndex(input2)
+TABLE_FROM_WEB_COLUMN_INDEX = tableColumnFromWebToIndex(input3)
+EXCEL_SHEET_INDEX = excelSheetToIndex(input4)
+FILENAME = input5
+PATH = input6
+URL = input7
 
 
 def parseTables(all_tables):
@@ -54,7 +53,7 @@ def parseTables(all_tables):
 
 def loadExcelDoc(sheet_index):
     # Open up Faton Excel file
-    xl = pd.ExcelFile(path + filename)
+    xl = pd.ExcelFile(PATH + FILENAME)
     sheets = xl.sheet_names
 
 
@@ -71,7 +70,7 @@ def main():
 	user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
 	headers={'User-Agent':user_agent,}
 
-	request=urllib2.Request(url,None,headers) #The assembled request
+	request=urllib2.Request(URL,None,headers) #The assembled request
 	page = urllib2.urlopen(request)
 	data = page.read() # The data
 
@@ -84,15 +83,15 @@ def main():
 
 	parsed_tables = parseTables(all_tables)
 
-	df_from_web = pd.DataFrame(parsed_tables[Table_from_web_index])
+	df_from_web = pd.DataFrame(parsed_tables[TABLE_FROM_WEB_INDEX])
 
-	df = loadExcelDoc(Excel_sheet_index)
+	df = loadExcelDoc(EXCEL_SHEET_INDEX)
 
-	wb = load_workbook(filename, keep_vba = True)
+	wb = load_workbook(FILENAME, keep_vba = True)
 
 	wb.get_sheet_names()
 
-	active_sheet = wb.sheetnames[Excel_sheet_index]
+	active_sheet = wb.sheetnames[EXCEL_SHEET_INDEX]
 
 	ws = wb[active_sheet]
 
@@ -104,7 +103,7 @@ def main():
 	    for j,web_label in enumerate(web_labels):
 	        if excel_label == web_label:
 	            #set the cell value in the excel file to match the value found from the web
-	            ws[i+1][Excel_column_index].value = df_from_web.loc[j,Table_from_web_column_index]
+	            ws[i+1][EXCEL_COLUMN_INDEX].value = df_from_web.loc[j,TABLE_FROM_WEB_COLUMN_INDEX]
 	       
 	wb.save("temp.xlsx")
 
