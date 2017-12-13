@@ -7,10 +7,11 @@ from openpyxl import load_workbook
 input1 = input('Please input the column in excel that you want modified (UPPERCASE ONLY): ')
 input2 = input('\nPlease count the number of the table from the web you would like to parse.\nFor example input 9 if you would like to read from the 9th table listed: ')
 input3 = input('\nPlease input the number of the column from the table on the web you would like to parse.\nFor example input 3 if you would like to read from the 3rd column: ')
-input4 = input('\nPlease input the number of the excel sheet that you would like to modify.\n For example from left to right the sheet tbas would be 1,2,3... accordingly: ')
-input5 = input('\nPlease input the name of the file you would like to modify (extension included).\n For example Verisk Model_Send_Excel_2.xlsx: ')
+input4 = input('\nPlease input the number of the excel sheet that you would like to read from.\n For example from left to right the sheet tbas would be 1,2,3... accordingly: ')
+input5 = input('\nPlease input the name of the file you would like to read from (extension included).\n For example Verisk Model_Send_Excel_2.xlsx: ')
 input6 = input('\nPlease input the path where this folder is located on your computer (please include a "/" at the end of the path).\nFor Example ~/Documents/Git/Html_scraping_project/: ')
 input7 = input('\nPlease input the url containing the table that you want to parse.\nFor example http://www.verisk.com/press-releases/2017/february/verisk-analytics-inc-reports-fourth-quarter-2016-financial-results.html:  ')
+print('\nThe file "temp.xlsx" has now been created in your directory...')
 
 #Convert user input into proper indexes
 def excelColumnToIndex(column):
