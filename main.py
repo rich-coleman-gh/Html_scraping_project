@@ -4,14 +4,37 @@ import pandas as pd #import pandas to convert list to data frame
 from openpyxl import load_workbook
 
 # INPUT VARIABLES SPECIFIED BY THE USER
-Excel_column_index = 6
-Table_from_web_index = 8
-Table_from_web_column_index = 2
-Excel_sheet_index = 0
-filename = "Verisk Model_Send_Excel_2.xlsx"
-path = "~/Documents/Git/Html_scraping_project/"
+input1 = input('Please input the column in excel that you want modified (UPPERCASE ONLY): ')
+input2 = input('\nPlease count the number of the table from the web you would like to parse.\nFor example input 9 if you would like to read from the 9th table listed: ')
+input3 = input('\nPlease input the number of the column from the table on the web you would like to parse.\nFor example input 3 if you would like to read from the 3rd column: ')
+input4 = input('\nPlease input the number of the excel sheet that you would like to modify.\n For example from left to right the sheet tbas would be 1,2,3... accordingly: ')
+input5 = input('\nPlease input the name of the file you would like to modify (extension included).\n For example Verisk Model_Send_Excel_2.xlsx: ')
+input6 = input('\nPlease input the path where this folder is located on your computer (please include a "/" at the end of the path).\nFor Example ~/Documents/Git/Html_scraping_project/: ')
+input7 = input('\nPlease input the url containing the table that you want to parse.\nFor example http://www.verisk.com/press-releases/2017/february/verisk-analytics-inc-reports-fourth-quarter-2016-financial-results.html:  ')
+
+#Convert user input into proper indexes
+def excelColumnToIndex(column):
+	return ord(column) - 65
+
+def tableFromWebToIndex(index):
+	return int(index) - 1
+
+def tableColumnFromWebToIndex(index):
+	return int(index) - 1
+
+def excelSheetToIndex(index):
+	return int(index) - 1
+
+
+#Set global variabes to correct values
+Excel_column_index = excelColumnToIndex(input1)
+Table_from_web_index = tableFromWebToIndex(input2)
+Table_from_web_column_index = tableColumnFromWebToIndex(input3)
+Excel_sheet_index = excelSheetToIndex(input4)
+filename = input5
+path = input6
 #url = "http://www.verisk.com/press-releases/2016/november/verisk-third-quarter-2016-results.html"
-url = "http://www.verisk.com/press-releases/2017/february/verisk-analytics-inc-reports-fourth-quarter-2016-financial-results.html"
+url = input7
 
 
 def parseTables(all_tables):
